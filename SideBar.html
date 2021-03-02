@@ -1,169 +1,169 @@
 <head>
-<style>
-.SiteBarMenuClose{
-  width:100%;
-  text-align: right;
-  padding:10px;
-}
-
-.SiteBarMenuContent{
-    height: 100%;
-    width: 350px;
-    position: fixed;
-    z-index: 10;
-    left: 48px;
-    /* background-color: #111; */
-    overflow-x: hidden;
-    border: 1px;
-    border: 1px solid #ccc;
-    background-color: #ffff;
-    box-shadow: 10px 10px 5px #aaaaaa;
-    display:none; 
-    }
-.SiteBarMenuContent H1{
-    font-size: 18pt;
-    font-weight: bolder;
-    padding: 10px 0px 10px 20px;
-    }
-
-.mainContent{
-  padding-left: 48px;
-}
-.navbar{
-  padding-left: 48px;
-}
-#spSiteHeader{
-   padding-left: 48px;
-}
-
-.sidebar {
-  height: 100%;
-  width: 48px;
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  left: 0;
-  background-color: #E9E9E9;
-  overflow-x: hidden;
-  padding-top: 48px;
-}
-
-.sidebar a {
-  padding: 10px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-}
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-</style>
-<script>
-	/*
-        Manage Expand Collapse
-    */
-    function CustomToogle(className){
-        if(document.getElementById(className).style.display === "block")
-        {
-            document.getElementById(className).style.display = '';
-        }else{
-            document.getElementById(className).style.display = "block";
+    <style>
+        .SiteBarMenuClose {
+            width: 100%;
+            text-align: right;
+            padding: 10px;
         }
-        Hide(className);
-    }
-    /*
-        Manage Expand Collapse
-    */
-   function Hide(className){
-    if(className !== 'GlobalSiteBarMenu')
-    {
-        document.getElementById('GlobalSiteBarMenu').style.display = 'none';
-    }
-    if(className !== 'SubSitesBarMenu')
-    {
-        document.getElementById('SubSitesBarMenu').style.display = 'none';
-    }
-    if(className !== 'MyDocumentsBarMenu')
-    {
-        document.getElementById('MyDocumentsBarMenu').style.display = 'none';
-    }
-    if(className !== 'SearchBarMenu')
-    {
-        document.getElementById('SearchBarMenu').style.display = 'none';
-    }
-    }
 
-		
-var coll = document.getElementsByClassName("collapsible");
-var i;
+        .SiteBarMenuContent {
+            height: 100%;
+            width: 350px;
+            position: fixed;
+            z-index: 10;
+            left: 48px;
+            /* background-color: #111; */
+            overflow-x: hidden;
+            border: 1px;
+            border: 1px solid #ccc;
+            background-color: #ffff;
+            box-shadow: 10px 10px 5px #aaaaaa;
+            display: none;
+        }
 
-for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click",function(){
-        document.getElementById('GlobalSiteBarMenu').style.display = 'none';
-        document.getElementById('SubSitesBarMenu').style.display = 'none';
-        document.getElementById('MyDocumentsBarMenu').style.display = 'none';
-        document.getElementById('SearchBarMenu').style.display = 'none';
-    });
-}
+            .SiteBarMenuContent H1 {
+                font-size: 18pt;
+                font-weight: bolder;
+                padding: 10px 0px 10px 20px;
+            }
 
-var coll = document.getElementsByClassName("GlobalMenu");
-var i;
+        .mainContent {
+            padding-left: 48px;
+        }
+
+        .navbar {
+            padding-left: 48px;
+        }
+
+        #spSiteHeader {
+            padding-left: 48px;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 48px;
+            position: fixed;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            background-color: #E9E9E9;
+            overflow-x: hidden;
+            padding-top: 48px;
+        }
+
+            .sidebar a {
+                padding: 10px;
+                text-decoration: none;
+                font-size: 20px;
+                color: #818181;
+                display: block;
+            }
+
+                .sidebar a:hover {
+                    color: #f1f1f1;
+                }
+    </style>
+    <script>
+        /*
+            Manage Expand Collapse
+        */
+        function CustomToogle(className) {
+            if (document.getElementById(className).style.display === "block") {
+                document.getElementById(className).style.display = '';
+            } else {
+                document.getElementById(className).style.display = "block";
+            }
+            Hide(className);
+        }
+        /*
+            Manage Expand Collapse
+        */
+        function Hide(className) {
+            if (className !== 'GlobalSiteBarMenu') {
+                document.getElementById('GlobalSiteBarMenu').style.display = 'none';
+            }
+            if (className !== 'SubSitesBarMenu') {
+                document.getElementById('SubSitesBarMenu').style.display = 'none';
+            }
+            if (className !== 'MyDocumentsBarMenu') {
+                document.getElementById('MyDocumentsBarMenu').style.display = 'none';
+            }
+            if (className !== 'SearchBarMenu') {
+                document.getElementById('SearchBarMenu').style.display = 'none';
+            }
+        }
+
+
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                document.getElementById('GlobalSiteBarMenu').style.display = 'none';
+                document.getElementById('SubSitesBarMenu').style.display = 'none';
+                document.getElementById('MyDocumentsBarMenu').style.display = 'none';
+                document.getElementById('SearchBarMenu').style.display = 'none';
+            });
+        }
+
+        var coll = document.getElementsByClassName("GlobalMenu");
+        var i;
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", () => { CustomToogle("GlobalSiteBarMenu"); });
         }
-coll = document.getElementsByClassName("SubSiteMenu");
+        coll = document.getElementsByClassName("SubSiteMenu");
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", () => { CustomToogle("SubSitesBarMenu"); });
         }
-coll = document.getElementsByClassName("MyDocumentsMenu");
+        coll = document.getElementsByClassName("MyDocumentsMenu");
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", () => { CustomToogle("MyDocumentsBarMenu"); });
         }
-coll = document.getElementsByClassName("SearchMenu");
+        coll = document.getElementsByClassName("SearchMenu");
         for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", () => { CustomToogle("SearchBarMenu"); });
         }
-	
-		</script>
+
+    </script>
 </head>
 <body>
-<div class="sidebar">
-          <a href="#home" class="GlobalMenu"><i class="ms-Icon ms-Icon--Home"></i></a>
-          <a href="#services" class="SubSiteMenu"><i class="ms-Icon ms-Icon--ShowResults" /></i></a>
-          <a href="#services" class="MyDocumentsMenu"><i class="ms-Icon ms-Icon--DocumentSet" /></i></a>
-          <a href="#services" class="SearchMenu"><i class="ms-Icon ms-Icon--Search" /></i></a>
-          <a href="#services" class="SearchMenu"><i class="ms-Icon ms-Icon--More" /></i></a>
-        </div>
-        
-        <div id="SideBarMenu" style="display:none;">
-            <div id="GlobalSiteBarMenu" class="SiteBarMenuContent">
-                <div class="SiteBarMenuClose">
-                    <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
-                </div>
+    <div class="sidebar">
+        <a href="#home" class="GlobalMenu"><i class="ms-Icon ms-Icon--Home"></i></a>
+        <a href="#services" class="SubSiteMenu"><i class="ms-Icon ms-Icon--ShowResults" /></i></a>
+        <a href="#services" class="MyDocumentsMenu"><i class="ms-Icon ms-Icon--DocumentSet" /></i></a>
+        <a href="#services" class="SearchMenu"><i class="ms-Icon ms-Icon--Search" /></i></a>
+        <a href="#services" class="SearchMenu"><i class="ms-Icon ms-Icon--More" /></i></a>
+    </div>
+
+    <div id="SideBarMenu" style="display:none;">
+        <div id="GlobalSiteBarMenu" class="SiteBarMenuContent">
+            <div class="SiteBarMenuClose">
+                <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
+            </div>
             <H1>Global Menu</H1>
-            </div>
-            <div id="SubSitesBarMenu" class="SiteBarMenuContent">
-                <div class="SiteBarMenuClose">
-                    <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
-                </div>
-            <H1>Sub Sites Menu</H1>
-            </div>
-            <div id="MyDocumentsBarMenu" class="SiteBarMenuContent">
-                <div class="SiteBarMenuClose">
-                    <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
-                </div>
-            <H1>My Documents</H1>
-            </div>
-            <div id="SearchBarMenu" class="SiteBarMenuContent">
-                <div class="SiteBarMenuClose">
-                    <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
-                </div>
-            <H1>Global Search</H1>
-            </div>
         </div>
+        <div id="SubSitesBarMenu" class="SiteBarMenuContent">
+            <div class="SiteBarMenuClose">
+                <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
+            </div>
+            <H1>Sub Sites Menu</H1>
+        </div>
+        <div id="MyDocumentsBarMenu" class="SiteBarMenuContent">
+            <div class="SiteBarMenuClose">
+                <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
+            </div>
+            <H1>My Documents</H1>
+        </div>
+        <div id="SearchBarMenu" class="SiteBarMenuContent">
+            <div class="SiteBarMenuClose">
+                <a href="#services" class="collapsible"><i class="ms-Icon ms-Icon--ChromeClose" /></i></a>
+            </div>
+            <H1>Global Search</H1>
+            <div style="position: absolute;bottom: 0;left: 0;">
+                <a href="#services" class="SearchMenu" style=""><i class="ms-Icon ms-Icon--Info"></i></a>
+                <div>
+                </div>
+            </div>
 </body>
-</head>		
-		
-		
+</head>
+
