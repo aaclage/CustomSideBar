@@ -1,5 +1,5 @@
   /**
-   * Add File to Array Files of type File[]
+   * Add File to Array Files of type File[] 123
    * https://www.meziantou.net/upload-files-and-directories-using-an-input-drag-and-drop-or-copy-and-paste-with.htm 
    * @param dataTransfer 
    */
