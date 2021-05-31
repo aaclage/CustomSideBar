@@ -48,6 +48,7 @@ react-onedrive-finder | [André Lage](http://aaclage.blogspot.com) ([@aaclage](h
 
 Version|Date|Comments
 -------|----|--------
+2.1|Jun 1, 2021|Upload and Drag and Drop files with spinner.
 2.0|May 20, 2021|Update MGT to version 2.2.0, include new Features (Localization, cache refresh).
 1.2|April 30, 2021|Include content Search on Drive Library, file details and Minimal style change.
 1.1|April 24, 2021|Fixes, optimization, Styling and extension filter included
