@@ -1,2 +1,2 @@
-# CustomSideBar
-Custom Side Bar
+# My Custom SPFX 
+Samples.
