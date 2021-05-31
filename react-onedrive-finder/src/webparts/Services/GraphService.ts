@@ -58,7 +58,7 @@ export default class GraphService {
       const resp = await this.client.api(apiUrl + "content").put(file);
       return resp;
     } else {
-      const resp = await this.saveLargeAttachment(
+      const resp = await this.saveLargeFile(
         apiUrl + "createUploadSession",
         file
       );
@@ -87,7 +87,7 @@ export default class GraphService {
     });
   }
 
-  public async saveLargeAttachment(apiUrl, file: File) {
+  public async saveLargeFile(apiUrl, file: File) {
     const sessionOptions = {
       item: {
         "@microsoft.graph.conflictBehavior": "rename",
@@ -114,11 +114,11 @@ export default class GraphService {
 
   private async saveToUploadSession(mimeStream: File, uploadUrl: string) {
     let minSize = 0;
-    let maxSize = 5 * 327680; //https://docs.microsoft.com/en-us/graph/api/driveitem-createuploadsession?view=graph-rest-1.0#upload-bytes-to-the-upload-session
+    let maxSize = 5 * 327680;
     while (mimeStream.size > minSize) {
       const mimeStreamString = await this.readFileContent(mimeStream);
       const fileSlice = mimeStreamString.slice(minSize, maxSize);
-      const resp = await this.uploadMailSlice(
+      const resp = await this.uploadFileSlice(
         uploadUrl,
         minSize,
         maxSize,
@@ -136,7 +136,7 @@ export default class GraphService {
     }
   }
 
-  private async uploadMailSlice(
+  private async uploadFileSlice(
     uploadUrl: string,
     minSize: number,
     maxSize: number,
