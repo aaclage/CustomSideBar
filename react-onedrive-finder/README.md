@@ -23,6 +23,9 @@ Below a draw resuming the custom query's made and what control uses to retrieve 
 
 ![Demo](./Assets/OneDrivefinderSample3.gif)
 
+### Upload Files to Library
+
+![Demo](../MGTDragDropPoC1.gif)
 
 ## Compatibility
 
