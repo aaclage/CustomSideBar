@@ -7,7 +7,7 @@ This solution has the goal to easily identify/follow key documents from all Tena
 Avaliable features:
 - Follow documents (individualy or multiple at same time)
 - Manage followed documents (Follow/unfollow)
-- List of all followed documents and unfollow if needed
+- List of all followed documents and option to unfollow if needed
 
 Usage of following Tecnologies:
 - Usage of Social Feature **"Follow" documents** and associated REST "[/_api/social.following/](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-follow-documents-sites-and-tags-by-using-the-rest-service-in-sharepoint-2)"
