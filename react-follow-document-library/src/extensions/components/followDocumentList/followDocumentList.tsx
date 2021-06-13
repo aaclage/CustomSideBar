@@ -22,17 +22,39 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
       SiteID: "1",
       fileList: [],
     };
-    this.getSiteID();
-
+    //Get MicrosoftGraph.DriveItems
+    this.getDriveItems();
   }
-  private getSiteID = async () => {
+
+  private getDriveItems = () => {
+    //Load using Graph
+    this.getGraphFollowedDocs();
+    //Load using REST
+    //this.getRestFollowedDocs();
+  }
+
+  /**
+   * 
+   */
+  private getRestFollowedDocs = async () => {
+    const restService: RestService = new RestService();
+    const followedData = await restService.followed(
+      this.props.context.spHttpClient,
+      this.props.context.pageContext.web.absoluteUrl,
+    );
+    this.setState({
+      fileList: followedData,
+    });
+  }
+
+  private getGraphFollowedDocs = async () => {
     const GraphService: Graph = new Graph();
     let graphData: any = await GraphService.getGraphContent("https://graph.microsoft.com/v1.0/me/drive/list", this.props.context);
     const DriveItem: MicrosoftGraph.DriveItem[] = await this.getListID(graphData.parentReference.siteId);
     this.setState({
       fileList: DriveItem,
     });
-    
+
   }
   private getListID = async (siteId: string): Promise<MicrosoftGraph.DriveItem[]> => {
     const GraphService: Graph = new Graph();
@@ -55,8 +77,10 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
   }
 
   public async componentWillReceiveProps(nextProps: IfollowDocumentListProps): Promise<void> {
+
+    //Get MicrosoftGraph.DriveItems
+    this.getDriveItems();
     // open panel
-    this.getSiteID();
     this.setState({
       isOpen: nextProps.isOpen,
     });
@@ -70,7 +94,8 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
       this.props.context.pageContext.web.absoluteUrl,
     );
     if (Status) {
-      this.getSiteID();
+      //Get MicrosoftGraph.DriveItems
+      this.getDriveItems();
     }
   }
 
