@@ -2,7 +2,11 @@
 
 ## Summary
 
-Short summary on functionality and used technologies.
+This solution has the goal to easily identify/follow key documents from all Tenant and easily access them in Modern Pages. This solution uses the Out of Box Social feature **"Follow document"** with combination of MSGraph queries and MGT FileList/File components.
+
+Usage of following Tecnologies:
+- Usage of Social Feature **"Follow" documents** and associated REST "[/_api/social.following/](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-follow-documents-sites-and-tags-by-using-the-rest-service-in-sharepoint-2)"
+- Usage of MGT (Microsoft Graph Toolkit) [FileList](https://docs.microsoft.com/en-us/graph/toolkit/components/file-list) and [File](https://docs.microsoft.com/en-us/graph/toolkit/components/file)
 
 ![image](./Assets/FollowDocumentLibrarySample1.gif)
 
@@ -15,24 +19,32 @@ Short summary on functionality and used technologies.
 - [SharePoint Framework](https://aka.ms/spfx)
 - [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
 
-> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
 ## Prerequisites
 
-> Any special pre-requisites?
+### Grant the service principal permission to the Microsoft Graph API
+
+Once installed, the solution will request the required permissions via the **Office 365 admin portal > SharePoint > Advanced > API access**.
+If you prefer to approve the permissions in advance, for example when testing the solution in the Workbench page without installing it, you can do so using the [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/):
+
+```bash
+o365 spo login https://contoso-admin.sharepoint.com
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Files.Read'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Files.Read.All'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Sites.Read.All'
+```
 
 ## Solution
 
 Solution|Author(s)
 --------|---------
-folder name | Author details (name, company, twitter alias with link)
+react-follow-document-library | [André Lage](http://aaclage.blogspot.com) ([@aaclage](https://twitter.com/aaclage))
 
 ## Version history
 
 Version|Date|Comments
 -------|----|--------
-1.1|March 10, 2021|Update comment
-1.0|January 29, 2021|Initial release
+1.0|June 14, 2021|Initial release
 
 ## Disclaimer
 
@@ -47,8 +59,9 @@ Version|Date|Comments
 - in the command-line run:
   - **npm install**
   - **gulp serve**
-
-> Include any additional steps as needed.
+  - **gulp bundle --ship**
+  - **gulp package-solution --ship**
+  - Add to AppCatalog and deploy
 
 ## Features
 
@@ -56,13 +69,31 @@ Description of the extension that expands upon high-level summary above.
 
 This extension illustrates the following concepts:
 
-- topic 1
-- topic 2
-- topic 3
+- Change of SharePoint Social Feature **"Follow"** to follow key Documents for users in Modern Sites. 
+- Simple UX to manage **Followed** documents and report list followed documents across Tenant.
+- Option to follow/unfollow documents individually. 
+- Option to follow multiple document at same time.  
+- Side Panel to List all users Followed Documents.
 
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
 
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+# Debug URL for testing
+Here's a debug URL for testing around this sample.
+```
+?debugManifestsFile=https%3A%2F%2Flocalhost%3A4321%2Ftemp%2Fmanifests%2Ejs&loadSPFX=true&customActions=%7B"e56ac563-6d72-46f2-ba3d-68169f80fa7f"%3A%7B"location"%3A"ClientSideExtension%2EListViewCommandSet%2ECommandBar"%2C"properties"%3A%7B%7D%7D%7D
+```
+
+
+## Support
+
+We do not support samples, but we do use GitHub to track issues and constantly want to improve these samples.
+
+If you encounter any issues while using this sample, [create a new issue](https://github.com/pnp/sp-dev-fx-extensions/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=bug-report.yml&sample=react-follow-document-library&authors=@aaclage&title=react-follow-document-library%20-%20).
+
+For questions regarding this sample, [create a new question](https://github.com/pnp/sp-dev-fx-extensions/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=question.yml&sample=react-follow-document-library&authors=@aaclage&title=react-follow-document-library%20-%20).
+
+Finally, if you have an idea for improvement, [make a suggestion](https://github.com/pnp/sp-dev-fx-extensions/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=suggestion.yml&sample=react-follow-document-library&authors=@aaclage&title=react-follow-document-library%20-%20).
+
+<img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-follow-document-library" />
 
 ## References
 
