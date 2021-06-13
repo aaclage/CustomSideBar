@@ -7,4 +7,6 @@ export interface IfollowDocumentListState {
   SiteID?: string;
   ListID?: string;
 
+  visible?:boolean;
+
 }

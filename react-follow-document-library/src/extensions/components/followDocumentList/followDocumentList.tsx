@@ -7,20 +7,20 @@ import { DefaultButton } from "office-ui-fabric-react/lib/Button";
 import Graph from "../../Services/GraphService";
 import { FileList, File, ViewType, MgtTemplateProps } from '@microsoft/mgt-react';
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
-import { MgtFileList } from '@microsoft/mgt';
 import RestService from "../../Services/RestService";
 
 import { IfollowDocumentListProps } from './IfollowDocumentListProps';
 import { IfollowDocumentListState } from './IfollowDocumentListState';
 
 export class followDocumentListPanel extends React.Component<IfollowDocumentListProps, IfollowDocumentListState> {
-  public flref = React.createRef<MgtFileList>();
+
   constructor(props: IfollowDocumentListProps) {
     super(props);
     this.state = {
       isOpen: true,
       SiteID: "1",
       fileList: [],
+      visible: false,
     };
     //Get MicrosoftGraph.DriveItems
     this.getDriveItems();
@@ -53,6 +53,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
     const DriveItem: MicrosoftGraph.DriveItem[] = await this.getListID(graphData.parentReference.siteId);
     this.setState({
       fileList: DriveItem,
+      visible: false,
     });
 
   }
@@ -83,6 +84,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
     // open panel
     this.setState({
       isOpen: nextProps.isOpen,
+      visible:false,
     });
   }
 
@@ -100,7 +102,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
   }
 
   public render(): React.ReactElement<IfollowDocumentListProps> {
-    const { SiteID, fileList } = this.state;
+    const {SiteID, visible, fileList } = this.state;
 
     const displayFollowStatusFiles = (Items: MicrosoftGraph.DriveItem[]) => {
       var listItems = Items.map(item => {
@@ -137,8 +139,8 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
         onDismiss={this._closePanel}
       >
         <div>
+          
           <FileList
-            ref={this.flref}
             siteId={SiteID}
             files={fileList}
             hideMoreFilesButton={true}
@@ -163,7 +165,10 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
    * Close extension panel
    */
   private _closePanel = () => {
-    this.setState({ isOpen: false, });
+    this.setState({
+      isOpen: false,
+      visible: true
+    });
   }
 
 }

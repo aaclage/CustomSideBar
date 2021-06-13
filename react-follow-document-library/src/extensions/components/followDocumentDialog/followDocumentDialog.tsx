@@ -3,37 +3,43 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { BaseDialog, IDialogConfiguration } from '@microsoft/sp-dialog';
 import { IFileProperties } from "../../FollowDocuments/FollowDocumentsCommandSet";
-import RestService from "../../Services/RestService";
-
+import { followType } from "../../util/followType";
 import { FollowDocument } from "../FollowDocument/followDocument";
+import { FollowDocumentBulk } from "../FollowDocumentBulk/followDocumentBulk";
 
 
 export default class followDocumentDialog extends BaseDialog {
     public fileInfo: IFileProperties[] = [];
-    private followStatus: boolean = false;
+    public followTypeDialog :followType;
 
-    public async initialize(info: IFileProperties[]) {
+    public async initialize(info: IFileProperties[], type: followType) {
+        this.followTypeDialog=type;
         this.fileInfo = info;
-        const restService: RestService = new RestService();
-        const followDocumentExist = await restService.isfollowed(this.fileInfo[0].context.spHttpClient, this.fileInfo[0].fileUrl, this.fileInfo[0].context.pageContext.site.absoluteUrl);
-        if (followDocumentExist) {
-            this.followStatus = followDocumentExist;
-            this.show();
-        } else {
-            this.followStatus = followDocumentExist;
-            this.show();
-        }
+        this.show();
     }
 
     public render(): void {
-        const reactElement =
-            <FollowDocument
-                fileInfo={this.fileInfo}
-                close={this.close}
-                followStatus={this.followStatus}
-            />;
-
-        ReactDOM.render(reactElement, this.domElement);
+        let reactElement;
+        switch (this.followTypeDialog) {
+            case followType.FOLLOW:
+                reactElement =
+                <FollowDocument
+                    fileInfo={this.fileInfo}
+                    close={this.close}
+                />;
+              break;
+            case followType.BULKFOLLOW:
+                reactElement =
+                <FollowDocumentBulk
+                    fileInfo={this.fileInfo}
+                    close={this.close}
+                />;
+              break;
+            default:
+              throw new Error("Unknown command");
+          }
+          ReactDOM.render(reactElement, this.domElement);
+        
     }
 
     public getConfig(): IDialogConfiguration {

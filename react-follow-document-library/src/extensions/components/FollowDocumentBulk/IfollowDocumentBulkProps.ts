@@ -1,6 +1,6 @@
 import { IFileProperties } from "../../FollowDocuments/FollowDocumentsCommandSet";
 
-export interface IfollowDocumentProps {
+export interface IfollowDocumentBulkProps {
     close: () => void;
     fileInfo: IFileProperties[];
 }

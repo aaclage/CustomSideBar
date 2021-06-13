@@ -1,9 +1,7 @@
 import * as React from 'react';
 
-import { IFileProperties } from "../../FollowDocuments/FollowDocumentsCommandSet";
 import { DialogContent } from 'office-ui-fabric-react/lib/Dialog';
 import { Link } from 'office-ui-fabric-react/lib/Link';
-import styles from './followDocument.module.scss';
 import { File, ViewType } from '@microsoft/mgt-react';
 import RestService from "../../Services/RestService";
 import { IfollowDocumentProps } from "./IfollowDocumentProps";
@@ -19,15 +17,22 @@ export class FollowDocument extends React.Component<IfollowDocumentProps, Ifollo
 
     constructor(props) {
         super(props);
+        this.isfollowed();
         this.state = {
             fileInfo: this.props.fileInfo,
-            followStatus: this.props.followStatus,
         };
+    }
+    private isfollowed = async () => {
+        const restService: RestService = new RestService();
+        const followDocumentExist = await restService.isfollowed(this.props.fileInfo[0].context.spHttpClient, this.props.fileInfo[0].fileUrl, this.props.fileInfo[0].context.pageContext.site.absoluteUrl);
+        this.setState({
+            followStatus:followDocumentExist,
+        });
     }
 
     public render(): React.ReactElement<IfollowDocumentProps> {
         const { fileInfo, followStatus } = this.state;
-
+        
         const followSocialDocument = () => {
             const restService: RestService = new RestService();
             const Status = restService.follow(
