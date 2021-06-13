@@ -4,7 +4,7 @@
 
 Short summary on functionality and used technologies.
 
-[picture of the solution in action, if possible]
+![image](./Assets/FollowDocumentLibrarySample1.gif)
 
 ## Used SharePoint Framework Version
 
