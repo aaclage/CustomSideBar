@@ -2,7 +2,7 @@
 
 ## Summary
 
-This solution has the goal to easily identify/follow key documents from all Tenant and easily access them in Modern Pages. This solution uses the Out of Box Social feature **"Follow document"** with combination of MSGraph queries and MGT FileList/File components.
+This solution has the goal to easily identify/follow user key documents from all Tenant and easily access them in Modern Pages. This solution uses the Out of Box Social feature **"Follow document"** with combination of MSGraph queries and MGT FileList/File components.
 
 Avaliable features:
 - Follow documents (individualy or multiple at same time)
@@ -43,7 +43,7 @@ o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Sites.
 
 Solution|Author(s)
 --------|---------
-react-follow-document | [André Lage](http://aaclage.blogspot.com) ([@aaclage](https://twitter.com/aaclage))
+react-follow-document | [AndrÃ© Lage](http://aaclage.blogspot.com) ([@aaclage](https://twitter.com/aaclage))
 
 ## Version history
 
