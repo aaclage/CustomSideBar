@@ -69,8 +69,8 @@ export default class Rest {
 
         return response.json();
       })
-        .then((Item: any) => {
-            return Item.value;
+      .then((Item: any) => {
+        return Item.value;
       });
     if (value === 0) {
       return true;

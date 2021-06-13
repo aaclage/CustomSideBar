@@ -134,7 +134,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
       <Panel isOpen={this.state.isOpen}
         type={PanelType.smallFixedFar}
         isLightDismiss
-        headerText="Follow Documents"
+        headerText="Followed Documents"
         onRenderFooterContent={this._onRenderFooterContent}
         onDismiss={this._closePanel}
       >

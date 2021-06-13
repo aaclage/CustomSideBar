@@ -22,7 +22,7 @@ export class FollowDocumentBulk extends React.Component<IfollowDocumentBulkProps
             const FollowDocumentExist = await restService.follow(this.props.fileInfo[index].context.spHttpClient, this.props.fileInfo[index].fileUrl, this.props.fileInfo[index].context.pageContext.site.absoluteUrl);
             if (FollowDocumentExist) {
                 result.push(<div key={index.toString()}>Following <b>"{this.props.fileInfo[index].fileLeafRef}"</b>.</div>);
-            } else { result.push(<div key={index.toString()}>Already following <b>"{this.props.fileInfo[index].fileLeafRef}"</b>.</div>); }
+            }else{result.push(<div key={index.toString()}>Already following <b>"{this.props.fileInfo[index].fileLeafRef}"</b>.</div>);}
         }
         this.setState({
             outPutResult: result,
@@ -36,7 +36,7 @@ export class FollowDocumentBulk extends React.Component<IfollowDocumentBulkProps
             showCloseButton={true}
             onDismiss={this.props.close}
         ><div>{
-            this.state.outPutResult
+           this.state.outPutResult
         }</div>
         </DialogContent>);
     }
