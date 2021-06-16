@@ -54,7 +54,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
         const DriveItem: MicrosoftGraph.DriveItem[] = await this.getListID(graphData.parentReference.siteId);
         this.setState({
             fileList: DriveItem,
-            visible: false,
+            visible: true,
         });
 
     }
@@ -131,10 +131,6 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
             return <div>{displayFollowStatusFiles(Item)}</div>;
         };
 
-        const Loading = (props: MgtTemplateProps) => {
-            return <Spinner size={SpinnerSize.large} />;
-        };
-
         const NoData = (props: MgtTemplateProps) => {
             return <div>No follow documents.</div>;
         };
@@ -148,7 +144,7 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
                 onDismiss={this._closePanel}
             >
                 <div>
-
+                    {(!visible) && <div><Spinner size={SpinnerSize.large} /></div>}
                     <FileList
                         siteId={SiteID}
                         files={fileList}
@@ -156,7 +152,6 @@ export class followDocumentListPanel extends React.Component<IfollowDocumentList
                         pageSize={1000}
                     >
                         <MyFile template="default"></MyFile>
-                        <Loading template="loading"></Loading>
                         <NoData template="no-data"></NoData>
                     </FileList>
                 </div>
