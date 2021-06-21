@@ -2,20 +2,31 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { followType } from "../../util/followType";
+import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { BaseDialog, IDialogConfiguration } from '@microsoft/sp-dialog';
 import { DialogContent, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { FollowDocumentProperties } from '../followDocumentProperties/followDocumentProperties';
+import { FollowDocumentSendMessage } from '../followDocumentSendMessage/followDocumentSendMessage';
 
 export default class FollowDocumentDialog extends BaseDialog {
-    public _followDocumentState:boolean=false;
+    public _followDocumentState: boolean = false;
     private _webUrl: string;
+    public _filename:string;
+    private _context:WebPartContext;
     public _followTypeDialog: followType;
-    public _filename: string;
-    public return: (string)=>void;
+    public _fileInfo: any;
+    public return: (string) => void;
 
-    public async initialize(url: string, type: followType) {
+
+    public async initialize(url: string, type: followType = followType.Blank) {
         this._webUrl = url;
+        this._followTypeDialog = type;
+        this.show();
+    }
+    public async initializedTeams(fileInfo: any,context:WebPartContext, type: followType) {
+        this._context = context;
+        this._fileInfo = fileInfo;
         this._followTypeDialog = type;
         this.show();
     }
@@ -23,7 +34,7 @@ export default class FollowDocumentDialog extends BaseDialog {
     public render(): void {
         let reactElement;
         const Unfollow = () => {
-            this._followDocumentState=true;
+            this._followDocumentState = true;
             this.close();
         };
         switch (this._followTypeDialog) {
@@ -32,6 +43,15 @@ export default class FollowDocumentDialog extends BaseDialog {
                     <FollowDocumentProperties
                         url={this._webUrl}
                         close={this.close}
+                    />;
+                break;
+            case followType.SendTeams:
+                reactElement =
+                    <FollowDocumentSendMessage
+                        url={this._webUrl}
+                        close={this.close}
+                        context={this._context}
+                        fileInfo={this._fileInfo}
                     />;
                 break;
             case followType.Unfollow:
@@ -59,7 +79,7 @@ export default class FollowDocumentDialog extends BaseDialog {
     }
     protected onAfterClose(): void {
         super.onAfterClose();
-        
+
         // Clean up the element for the next dialog
         ReactDOM.unmountComponentAtNode(this.domElement);
     }

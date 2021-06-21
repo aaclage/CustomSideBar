@@ -1,14 +1,14 @@
 @import "~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss";
 
 :export {
-  padding: 20;
+  padding: 10;
   minWidth: 200;
   maxWidth: 200;
   compactThreshold: 480;
-  rowsPerPage: 3;
+  rowsPerPage: 100;
 }
 
-.gridLayout {
+.followDocumentGrid {
   overflow: hidden;
   font-size: 0;
   position: relative;
@@ -34,14 +34,8 @@
   }
 
   :global(.ms-DocumentCard:not(.ms-DocumentCard--compact)) {
-    /*min-width: 212px;*/
     min-width: 200px;
     max-width: 200px;
-    /*max-width: 286px;*/
-
-    :global(.ms-DocumentCardActivity) {
-      padding-bottom: 16px;
-    }
 
     :global(.ms-DocumentCardTile-titleArea) {
       height: 81px;

@@ -3,7 +3,7 @@ import * as ReactDom from "react-dom";
 import styles from './FollowDocumentWebPart.module.scss';
 import { IFollowDocumentWebPartProps } from './IFollowDocumentWebPartProps';
 import { IFollowDocumentWebPartState } from './IFollowDocumentWebPartState';
-import { GridLayout } from '../components/gridLayout/index';
+import { FollowDocumentGrid } from '../components/followDocumentGrid/index';
 import Rest from '../Service/Rest';
 import Graph from "../Service/GraphService";
 
@@ -28,12 +28,18 @@ import { followType } from '../util/followType';
 import { ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
+import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
+import { Stack, IStackTokens } from 'office-ui-fabric-react/lib/Stack';
+
+const stackTokens: Partial<IStackTokens> = { childrenGap: 20 };
 
 export default class FollowDocumentWebPart extends React.Component<IFollowDocumentWebPartProps, IFollowDocumentWebPartState> {
   private _siteId: string = null;
   private _listId: string = null;
   private _panelPlaceHolder: HTMLDivElement = null;
+  private _selectedGroup: string = "0";
   constructor(props) {
     super(props);
     this.state = {
@@ -46,10 +52,11 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
     this._panelPlaceHolder = document.body.appendChild(
       document.createElement("div")
     );
-    this.getDriveItems();
+    this.getListItems();
   }
 
-  private getDriveItems = () => {
+  private getListItems = () => {
+    this._selectedGroup = "0";
     if (!this.state.visible) {
       this.setState({
         visible: true,
@@ -60,6 +67,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
 
   }
 
+  //get Web Name and Web Url of Document
   private getSearchWebID = async (graphData: any[], webs: any[]): Promise<any[]> => {
     const graphService: Graph = new Graph();
     const initialized = await graphService.initialize(this.props.context.serviceScope);
@@ -100,7 +108,9 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
   }
 
   private onActionTeamsClick = (action: any, ev: React.SyntheticEvent<HTMLElement>): void => {
-    alert(`You clicked the ${action} action`);
+
+    const dialog: FollowDocumentDialog = new FollowDocumentDialog();
+    dialog.initializedTeams(action, this.props.context, followType.SendTeams);
     ev.stopPropagation();
     ev.preventDefault();
   }
@@ -173,8 +183,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
     dialog._followTypeDialog = followType.Unfollow;
     dialog._filename = action.fields.Title;
     dialog.show().then(async () => {
-      if(dialog._followDocumentState)
-      {
+      if (dialog._followDocumentState) {
         const restService: Rest = new Rest();
         const Status = await restService.stopfollowing(
           this.props.context.spHttpClient,
@@ -183,7 +192,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
         );
         if (Status) {
           dialog._followDocumentState = false;
-          this.getDriveItems();
+          this.getListItems();
         }
       }
     });
@@ -211,7 +220,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
 
       }
     }
-    let item = [];
+    let items = [];
     DriveItem.forEach(element => {
       if (element.fields.IconUrl.indexOf("lg_iczip.gif") > -1) {
         element.fields.IconUrl = element.fields.IconUrl.replace("lg_iczip.gif", "lg_iczip.png");
@@ -219,14 +228,13 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
       if (element.fields.IconUrl.indexOf("lg_icmsg.png") > -1) {
         element.fields.IconUrl = element.fields.IconUrl.replace("lg_icmsg.png", "lg_icmsg.gif");
       }
-      item.push({
+      items.push({
         thumbnail: element.previewImg,
         title: element.fields.Title,
         profileImageSrc: element.fields.IconUrl,
         url: (element.fields.ServerUrlProgid === undefined ? element.fields.Url : element.fields.ServerUrlProgid.substring(1)),
-        location: element.WebName,
+        webName: element.WebName,
         webUrl: element.WebUrl,
-        activity: "3/13/2019",
         documentCardActions: [
           {
             iconProps: { iconName: 'TeamsLogo' },
@@ -258,9 +266,22 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
       });
 
     });
-
+    let uniq = {};
+    let group: Array<IDropdownOption> = new Array<IDropdownOption>();
+    //Remove duplicated from array
+    let uniqueArray = [];
+    uniqueArray = items.filter(obj => !uniq[obj.webUrl] && (uniq[obj.webUrl] = true));
+    group.push({ key: '0', text: 'All Sites' });
+    uniqueArray.forEach(element => {
+      group.push({
+        key: element.webUrl,
+        text: "Site: " + element.webName,
+      });
+    });
     this.setState({
-      Items: item,
+      Items: items,
+      ItemsSearch: items,
+      ItemsGroup: group,
       visible: false,
       siteId: this._siteId,
       listId: this._listId
@@ -277,7 +298,11 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
 
   private getFollowDocuments = async (siteId: string, listId: string): Promise<any> => {
     const GraphService: Graph = new Graph();
-    let graphData: any = await GraphService.getGraphContent(`https://graph.microsoft.com/v1.0/sites/${siteId}/Lists/${listId}/items?expand=fields(select=ItemId,ListId,SiteId,webId,Title,Url,ServerUrlProgid,IconUrl,File_x0020_Type.progid)&$filter=fields/ItemId gt -1`, this.props.context);
+    let graphData: any = [];
+    graphData = await GraphService.getGraphContent(`https://graph.microsoft.com/v1.0/sites/${siteId}/Lists/${listId}/items?expand=fields(select=ItemId,ListId,SiteId,webId,Title,Url,ServerUrlProgid,IconUrl,File_x0020_Type.progid)&$filter=fields/ItemId gt -1`, this.props.context);
+    graphData.value = graphData.value.sort((a, b) => {
+      return b.id - a.id;
+    });
 
     //Get Web site Name 
     graphData = await this.getFollowDocumentsWebName(graphData);
@@ -295,12 +320,75 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
     return graphData;
   }
   public render(): React.ReactElement<IFollowDocumentWebPartProps> {
+    //Filter Search Text
+    const checkSearchDrive = (SearchQuery: string) => {
+      let items = [];
+      if (this._selectedGroup === "0") {
+        items = this.state.Items.filter(item => (item.title.toLowerCase().indexOf(SearchQuery.toLowerCase()) > -1));
+
+      } else {
+        items = this.state.Items.filter(item => (item.title.toLowerCase().indexOf(SearchQuery.toLowerCase()) > -1 && item.webUrl.toLowerCase().indexOf(this._selectedGroup.toLowerCase()) > -1));
+      }
+      this.setState({
+        ItemsSearch: items,
+      });
+    };
+    const checkClear = (ev: any) => {
+      let items = [];
+      if (this._selectedGroup === "0") {
+        items = this.state.Items;
+
+      } else {
+        items = this.state.Items.filter(item => (item.webUrl.toLowerCase().indexOf(this._selectedGroup.toLowerCase()) > -1));
+      }
+      this.setState({
+        ItemsSearch: items,
+      });
+    };
+
+    const filterall = (event: React.FormEvent<HTMLDivElement>, selectedOption: IDropdownOption) => {
+      this._selectedGroup = selectedOption.key.toString();
+      if (selectedOption.key.toString() === "0") {
+        this.setState({
+          ItemsSearch: this.state.Items,
+        });
+      } else {
+        const items = this.state.Items.filter(item => item.webUrl.toLowerCase().indexOf(selectedOption.key.toString().toLowerCase()) > -1);
+        this.setState({
+          ItemsSearch: items,
+        });
+      }
+    };
 
     return (
       <>
         <WebPartTitle displayMode={this.props.displayMode}
           title={this.props.title}
-          updateProperty={this.props.updateProperty} />
+          updateProperty={this.props.updateProperty} moreLink={
+            <div style={{ display: "inline-flex" }}>
+              {(!this.state.visible) &&
+                <div>
+                  <IconButton
+                    iconProps={{ iconName: 'Refresh' }}
+                    onClick={
+                      this.getListItems
+                    } allowDisabledFocus disabled={false} checked={false}
+                  />
+                </div>
+              }
+              {(!this.state.visible) &&
+                <Dropdown
+                  placeholder="Filter by Site"
+                  onChange={filterall}
+                  tabIndex={0}
+                  // eslint-disable-next-line react/jsx-no-bind
+
+                  options={this.state.ItemsGroup}
+                  styles={{ dropdown: { width: 300 } }}
+                />
+              }
+            </div>
+          } />
         <div className={styles.spinnerLoading}>
           {(this.state.visible) &&
 
@@ -308,14 +396,15 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
 
           }
           {(!this.state.visible) &&
-            <IconButton iconProps={{ iconName: 'Refresh' }} text="Refresh cache" onClick={
-              this.getDriveItems
-            } allowDisabledFocus disabled={false} checked={false} ></IconButton>
+            <Stack tokens={stackTokens}>
+
+              <SearchBox style={{ width: "80%" }} placeholder="Search Document" onSearch={checkSearchDrive} onClear={checkClear} />
+            </Stack>
           }
         </div>
         <div className={styles.grid}>
-          <GridLayout
-            items={this.state.Items}
+          <FollowDocumentGrid
+            items={this.state.ItemsSearch}
             onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}
           />
         </div>
@@ -337,7 +426,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
         <div style={{ cursor: 'pointer' }} onClick={() => window.open(item.url, '_blank')}>
           <DocumentCardImage height={100} imageFit={ImageFit.center} imageSrc={item.profileImageSrc} />
         </div>
-        {!isCompact && <DocumentCardLocation location={item.location} onClick={() => window.open(item.webUrl, '_blank')} />}
+        {!isCompact && <DocumentCardLocation location={item.webName} onClick={() => window.open(item.webUrl, '_blank')} />}
         <DocumentCardDetails>
           <DocumentCardTitle
             title={item.title}
@@ -347,7 +436,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
           <DocumentCardActions className={styles.DocumentCardActionsPadding} actions={item.documentCardActions} />
         </DocumentCardDetails>
       </DocumentCard>
-      
+
     </div>;
   }
 }
