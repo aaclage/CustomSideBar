@@ -4,7 +4,7 @@
 
 This solution has the goal to easily identify/follow user key documents from all Tenant and easily access them in Modern Pages and Microsoft Teams. This solution uses the Out of Box Social feature **"Follow Document WebPart"** with combination of MSGraph queries and extension for Microsoft Teams.
 
-This is a 2 phase project with associated dependency of solution [Follow-Document](https://github.com/pnp/sp-dev-fx-extensions/tree/main/samples/react-command-follow-document) extension where solution allow to select and manage Followed Document in Libraries to be used in this project. 
+This is a 2 phase project with associated dependency of solution [Follow-Document](https://github.com/pnp/sp-dev-fx-extensions/tree/main/samples/react-command-follow-document) extension where users are allow to select and manage Followed Document in Libraries to be used in this project. 
 
 Available features:
 - Display Follow Documents as Document Card Grid.
@@ -59,7 +59,7 @@ o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Channe
 
 Solution|Author(s)
 --------|---------
-react-follow-document-webPart | [André Lage](https://github.com/aaclage) (http://aaclage.blogspot.com, [@aaclage](https://twitter.com/aaclage))
+react-follow-document-webpart | [André Lage](https://github.com/aaclage) (http://aaclage.blogspot.com, [@aaclage](https://twitter.com/aaclage))
 
 ## Version history
 
@@ -91,10 +91,9 @@ Description of the extension that expands upon high-level summary above.
 This extension illustrates the following concepts:
 
 - Change of SharePoint Social Feature **"Follow"** to follow key Documents for users in Modern Sites. 
-- Simple UX to manage **Followed** documents and report list followed documents across Tenant.
+- Simple UX to manage **Followed** documents and report list followed documents across Tenant and access properties and Preview of Document.
 - Option to unfollow documents individually. 
 - Integration with other services of Office 365 such us (Preview, Microsoft Team Messages).  
-- List .
 ## Disclaimer
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
