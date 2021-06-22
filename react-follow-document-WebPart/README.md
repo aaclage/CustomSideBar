@@ -1,10 +1,31 @@
-# follow-document-web-part
+# Follow Document WebPart
 
 ## Summary
 
-Short summary on functionality and used technologies.
+This solution has the goal to easily identify/follow user key documents from all Tenant and easily access them in Modern Pages and Microsoft Teams. This solution uses the Out of Box Social feature **"Follow Document WebPart"** with combination of MSGraph queries and extension for Microsoft Teams.
 
-[picture of the solution in action, if possible]
+This is a 2 phase project with associated dependency of solution [Follow-Document](https://github.com/pnp/sp-dev-fx-extensions/tree/main/samples/react-command-follow-document) extension where solution allow to select and manage Followed Document in Libraries to be used in this project. 
+
+Available features:
+- Display Follow Documents as Document Card Grid.
+- Click on icon redirects to Document.
+- Click on Site name redirects to Site.
+- Team icon, Form to send message with html to Teams using adaptive cards. 
+- Folder Icon redirects to Library where document is located.
+- Filled Start allow user to unfollow document.
+- Info icon open the Properties of Document with capability to edit.
+- Document with search icon allow to preview Document in Side Panel.
+- Search by Filename.
+- Grouping by Site.
+- Microsoft Team integration with personal/Tab App that allow user focus on key Documents. 
+
+Usage of following Technologies:
+- Usage of Social Feature **"Follow" documents** and associated REST "[/_api/social.following/](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-follow-documents-sites-and-tags-by-using-the-rest-service-in-sharepoint-2)"
+- Usage of Graph queries using  [Graph explorer](https://developer.microsoft.com/en-us/graph/graph-explorer)
+- Usage of  [adaptive cards](https://adaptivecards.io/)
+- Microsoft Teams integration with following option [TeamsTab, TeamsPersonalApp]
+
+![image](./Assets/FollowDocumentSample1.gif)
 
 ## Used SharePoint Framework Version
 
@@ -19,20 +40,32 @@ Short summary on functionality and used technologies.
 
 ## Prerequisites
 
-> Any special pre-requisites?
+### Grant the service principal permission to the Microsoft Graph API
+
+Once installed, the solution will request the required permissions via the **Office 365 admin portal > SharePoint > Advanced > API access**.
+If you prefer to approve the permissions in advance, for example when testing the solution in the Workbench page without installing it, you can do so using the [CLI for Microsoft 365](https://pnp.github.io/cli-microsoft365/):
+
+```bash
+o365 spo login https://contoso-admin.sharepoint.com
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Files.Read'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Files.Read.All'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Sites.Read.All'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Team.ReadBasic.All'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'Channel.ReadBasic.All'
+o365 spo serviceprincipal grant add --resource 'Microsoft Graph' --scope 'ChannelMessage.Send'
+```
 
 ## Solution
 
 Solution|Author(s)
 --------|---------
-folder name | Author details (name, company, twitter alias with link)
+react-follow-document-webPart | [André Lage](https://github.com/aaclage) (http://aaclage.blogspot.com, [@aaclage](https://twitter.com/aaclage))
 
 ## Version history
 
 Version|Date|Comments
 -------|----|--------
-1.1|March 10, 2021|Update comment
-1.0|January 29, 2021|Initial release
+1.0|June 22, 2021|Initial release
 
 ## Disclaimer
 
@@ -47,8 +80,9 @@ Version|Date|Comments
 - in the command-line run:
   - **npm install**
   - **gulp serve**
-
-> Include any additional steps as needed.
+  - **gulp bundle --ship**
+  - **gulp package-solution --ship**
+  - Add to AppCatalog and deploy
 
 ## Features
 
@@ -56,13 +90,25 @@ Description of the extension that expands upon high-level summary above.
 
 This extension illustrates the following concepts:
 
-- topic 1
-- topic 2
-- topic 3
+- Change of SharePoint Social Feature **"Follow"** to follow key Documents for users in Modern Sites. 
+- Simple UX to manage **Followed** documents and report list followed documents across Tenant.
+- Option to unfollow documents individually. 
+- Integration with other services of Office 365 such us (Preview, Microsoft Team Messages).  
+- List .
+## Disclaimer
+**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
 
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
+## Help
 
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+We do not support samples, but we this community is always willing to help, and we want to improve these samples. We use GitHub to track issues, which makes it easy for  community members to volunteer their time and help resolve issues.
+
+If you encounter any issues while using this sample, [create a new issue](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=bug-report.yml&sample=react-follow-document-WebPart&authors=@aaclage&title=react-follow-document-WebPart%20-%20).
+
+For questions regarding this sample, [create a new question](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=question.yml&sample=react-follow-document-WebPart&authors=@aaclage&title=react-follow-document-WebPart%20-%20).
+
+Finally, if you have an idea for improvement, [make a suggestion](https://github.com/pnp/sp-dev-fx-webparts/issues/new?assignees=&labels=Needs%3A+Triage+%3Amag%3A%2Ctype%3Abug-suspected&template=suggestion.yml&sample=react-follow-document-WebPart&authors=@aaclage&title=react-follow-document-WebPart%20-%20).
+
+<img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-follow-document-WebPart" />
 
 ## References
 
