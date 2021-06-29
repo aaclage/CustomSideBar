@@ -5,7 +5,6 @@ import { DialogContent, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 import { PrimaryButton, DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { IfollowDocumentSendMessageProps } from "./IfollowDocumentSendMessageProps";
 import { IfollowDocumentSendMessageState } from "./IfollowDocumentSendMessageState";
-import { ITag, } from "office-ui-fabric-react/lib/Pickers";
 import * as AdaptiveCards from "adaptivecards";
 import Graph from "../../Service/GraphService";
 import { Dropdown, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
