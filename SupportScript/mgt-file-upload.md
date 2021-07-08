@@ -26,7 +26,7 @@ Folder with file to upload: ```/folder/test.txt```
 
 ### Example 1: No query, path or ids is provided
 
-```<mgt-file-list file-upload="True" excluded-file-extensions="jpg,png,zip" ><mgt-file-list>```
+```<mgt-file-list file-upload="true" excluded-file-extensions="jpg,png,zip" max-file-size="10000" max-upload-file="10" ><mgt-file-list>```
 
 The request made is < 4 MB >: `POST /me/drive/root:/folder/test.txt:/content`
 
@@ -34,7 +34,7 @@ The request made is > 4 MB: `POST /me/drive/root:/folder/test.txt:/createUploadS
 
 ### Example 2: Developer provides a Item Id associated with folder
 
-```<mgt-file-list item-id="123" file-upload="True"><mgt-file-list>```
+```<mgt-file-list item-id="123" file-upload="true" excluded-file-extensions="jpg,png,zip" max-file-size="10000" max-upload-file="10"><mgt-file-list>```
 
 The request made is < 4 MB: `POST /me/drive/items/123:/folder/test.txt:/content`
 
@@ -42,7 +42,7 @@ The request made is > 4 MB: `POST /me/drive/items/123:/folder/test.txt:/createUp
 
 ### Example 3: Developer only provides Item Path
 
-```<mgt-file-list item-path="/Custom" file-upload="True"><mgt-file-list>```
+```<mgt-file-list item-path="/Custom" file-upload="true" excluded-file-extensions="jpg,png,zip" max-file-size="10000" max-upload-file="10"><mgt-file-list>```
 
 The request made is < 4 MB >: `POST /me/drive/root:/Custom/folder/test.txt:/content`
 
@@ -51,7 +51,7 @@ The request made is > 4 MB: `POST /me/drive/root:/Custom/folder/test.txt:/create
 
 ### Example 4: Developer provides drive id, item id and item path
 
-```<mgt-file-list drive-id="123" item-id="456" item-path="/Custom" file-upload="True" ></mgt-file-list>```
+```<mgt-file-list drive-id="123" item-id="456" item-path="/Custom" file-upload="true" excluded-file-extensions="jpg,png,zip" max-file-size="10000" max-upload-file="10" ></mgt-file-list>```
 
 The request made is < 4 MB >: `POST /drives/123/items/456:/Custom/folder/test.txt:/content`
 
@@ -59,7 +59,7 @@ The request made is > 4 MB: `POST /drives/123/items/456:/Custom/folder/test.txt:
 
 ### Example 5: Developer provides Site id, item id and item path
 
-```<mgt-file-list site-id="123" item-id="456" item-path="/Custom" file-upload="True" ></mgt-file-list>```
+```<mgt-file-list site-id="123" item-id="456" item-path="/Custom" file-upload="true" excluded-file-extensions="jpg,png,zip" max-file-size="10000" max-upload-file="10" ></mgt-file-list>```
 
 The request made is < 4 MB >: `POST /sites/123/drive/items/456:/Custom/folder/test.txt:/content`
 
@@ -76,10 +76,10 @@ The request made is > 4 MB: `POST /sites/123/drive/items/456:/Custom/folder/test
 | user-id | userId | ID of the user where the target folder to upload the file belongs to. Must also provide either `item-id` or `item-path`  |
 | item-id | itemId | The full query or path to the drive where to upload the file |
 | item-path | itemPath | Item path of the folder (relative to the root) to upload the file to. Default query is `/me/drive/root`. Provide `{drive-id}`, `{group-id}`, `{site-id}`, `{item-id}`, or `{user-id}` to query a specific location |
-| enable-file-upload | enablefileupload | Boolean to enable or disable file upload extension, default as false  |
-| excluded-file-extensions | excludedfileExtensions | String Array of file extension to exclude from file upload |
-| Max-file-size | MaxFileSize | Number to restrict upload size (KB)  |
-| Max-Upload-file | MaxUploadFile | Number, default value to 10 Files. |
+| enable-file-upload | enablefileupload | Boolean to enable or disable file upload extension, default is false  |
+| excluded-file-extensions | excludedfileextensions | String Array of file extension to exclude from file upload |
+| max-file-size | maxfilesize | Number to restrict upload size (KB)  |
+| max-upload-file | maxuploadfile | Number, default value to 10 Files. |
 
 
 
