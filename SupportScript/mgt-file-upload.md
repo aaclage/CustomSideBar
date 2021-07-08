@@ -27,7 +27,7 @@ Folder with file to upload: ```/folder/test.txt```
 
 ### Example 1: No query, path or ids is provided
 
-```<mgt-file-list file-upload="True"><mgt-file-list>```
+```<mgt-file-list file-upload="True" excluded-file-extensions="jpg,png,zip" ><mgt-file-list>```
 
 The request made is < 4 MB >: `POST /me/drive/root:/folder/test.txt:/content`
 
