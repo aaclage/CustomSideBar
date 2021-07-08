@@ -1,5 +1,4 @@
-# mgt-file-upload
-
+# File upload extension for mgt-file-list component
 
 The file upload extension for File-List component provides the capability of users upload files to pre defined Graph queries based on Onedrive, SharePoint Libraries.
 This files can be uploaded using a Upload button or by drag and drop effect in File-list component.
