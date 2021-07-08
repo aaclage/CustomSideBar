@@ -94,8 +94,7 @@ The request made is > 4 MB: `POST /sites/123/drive/items/456:/Custom/folder/test
 | Provide `{site-id}` AND `{item-path}` | Files.ReadWrite.All | `POST /sites/{site-id}/root:/{item-path}${file.fullPath}:/`  | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
 | Provide `{drive-id}` AND `{item-path}` | Files.ReadWrite.All | `POST /drives/{drive-id}/root:/{item-path}${file.fullPath}:/` | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
 | Provide `{drive-id}` AND `{item-id}`| Files.ReadWrite.All | `POST  /drives/{driveId}/items/{itemId}:${file.fullPath}:/` | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
-| Provide `{group-id}` AND `{item-id}` | Files.ReadWrite.All | `POST /groups/{group-id}/items/{itemId}:${file.fullPath}:/` | `content, createUploadSession` |  
-Include File Name and/or subfolders to simulate uploaded folder structure
+| Provide `{group-id}` AND `{item-id}` | Files.ReadWrite.All | `POST /groups/{group-id}/items/{itemId}:${file.fullPath}:/` | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
 | Provide `{group-id}` AND `{item-path}` | Files.ReadWrite.All | `POST /groups/{group-id}/root:/{item-path}${file.fullPath}:/` | `content, createUploadSession` |  Include File Name and/or subfolders to simulate uploaded folder structure
 | Provide only `{item-path}` | Files.ReadWrite.All | `POST /me/drive/root:/{item-path}${file.fullPath}:/` | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
 | Provide `{user-id}` AND `{item-id}`| Files.ReadWrite.All | `POST /me/{userId}/items/{itemId}:${file.fullPath}:/` | `content, createUploadSession` | Include File Name and/or subfolders to simulate uploaded folder structure
