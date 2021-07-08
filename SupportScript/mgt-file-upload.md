@@ -34,7 +34,7 @@ The request made is > 4 MB: `POST /me/drive/root:/folder/test.txt:/createUploadS
 
 ### Example 2: Developer provides a Item Id associated with folder
 
-```<mgt-file-list item-id="123" file-upload="true" excluded-file-extensions="{jpg,png,zip}" max-file-size="10000" max-upload-file="10"><mgt-file-list>```
+```<mgt-file-list item-id="123" file-upload="true" excluded-file-extensions="[jpg,png,zip]" max-file-size="10000" max-upload-file="10"><mgt-file-list>```
 
 The request made is < 4 MB: `POST /me/drive/items/123:/folder/test.txt:/content`
 
