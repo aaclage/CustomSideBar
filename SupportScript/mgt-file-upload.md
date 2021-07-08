@@ -79,7 +79,7 @@ The request made is > 4 MB: `POST /sites/123/drive/items/456:/Custom/folder/test
 | enable-file-upload | enablefileupload | Boolean to enable or disable file upload extension, default is false  |
 | excluded-file-extensions | excludedfileextensions | String Array of file extension to be excluded from file upload |
 | max-file-size | maxfilesize | Number to restrict upload size (KB)  |
-| max-upload-file | maxuploadfile | Number, default value to 10 Files. |
+| max-upload-file | maxuploadfile | Number, default value are 10 Files. |
 
 
 
