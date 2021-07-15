@@ -1,12 +1,22 @@
 .panelTitle {
     font-size: 21px;
     font-weight: 100;
-  }
- 
-  
-  .footerSection {
+}
+
+.footerSection {
     & button,
     & a {
-      margin-right: 20px;
+        margin-right: 20px;
     }
-  }
+}
+
+.ListDocuments {
+    border: 1px solid #a19f9d;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f3f2f1;
+}
+
+.mgtfile {
+    --file-background-color: #f3f2f1;
+}

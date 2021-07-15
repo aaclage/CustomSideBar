@@ -209,7 +209,7 @@ export default class FollowDocumentWebPart extends React.Component<IFollowDocume
         let DriveItem: any = [];
 
         if (this.state.siteId === null) {
-            let graphData: any = await GraphService.getGraphContent("https://graph.microsoft.com/v1.0/me/drive/list", this.props.context);
+            let graphData: any = await GraphService.getGraphContent("https://graph.microsoft.com/v1.0/me/drive/list?$select=parentReference", this.props.context);
             this._siteId = graphData.parentReference.siteId;
             DriveItem = await this.getListID(graphData.parentReference.siteId);
         } else {
